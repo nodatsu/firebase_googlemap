@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildListItem(BuildContext context, Map data) {
-    final record = Record.fromMap(data);
+    final record = Record.fromMap(data as Map<String, dynamic>);
 
     return Padding(
       key: ValueKey(record.name),
@@ -74,16 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  final DocumentReference reference;
+  // final DocumentReference reference;
 
-  Record.fromMap(Map<String, dynamic> map, {this.reference})
+  Record.fromMap(Map<String, dynamic> map)
+  // Record.fromMap(Map<String, dynamic> map, {this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
         votes = map['votes'];
 
-  Record.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(snapshot.data(), reference: snapshot.reference);
+  // Record.fromSnapshot(DocumentSnapshot snapshot)
+  //     : this.fromMap(snapshot.data(), reference: snapshot.reference);
 
   @override
   String toString() => "Record<$name:$votes>";
