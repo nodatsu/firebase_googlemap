@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
-        return _buildList(context, snapshot.data.docs);
+        return _buildList(context, snapshot.data!.docs);
       },
     );
   }
@@ -73,17 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
 class Record {
   final String name;
   final int votes;
-  // final DocumentReference reference;
+  final DocumentReference reference;
 
-  Record.fromMap(Map<String, dynamic> map)
-  // Record.fromMap(Map<String, dynamic> map, {this.reference})
+  Record.fromMap(Map<String, dynamic> map, {required this.reference})
       : assert(map['name'] != null),
         assert(map['votes'] != null),
         name = map['name'],
         votes = map['votes'];
 
-  // Record.fromSnapshot(DocumentSnapshot snapshot)
-  //     : this.fromMap(snapshot.data(), reference: snapshot.reference);
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+      : this.fromMap(snapshot.data() as Map<String, dynamic>, reference: snapshot.reference);
 
   @override
   String toString() => "Record<$name:$votes>";
